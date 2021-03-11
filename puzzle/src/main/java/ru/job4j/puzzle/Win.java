@@ -4,8 +4,11 @@ public class Win {
 
     public static boolean check(int[][] board) {
         boolean rsl = false;
-        if (monoHorizontal(board) || monoVertical(board)) {
-            rsl = true;
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][i] == 1 && (monoVertical(board) || monoHorizontal(board))) {
+                rsl = true;
+                break;
+            }
         }
         return rsl;
     }
@@ -13,16 +16,14 @@ public class Win {
     public static boolean monoHorizontal(int[][] board) {
         boolean result = false;
         for (int row = 0; row < board.length; row++) {
+            int count = 0;
             for (int cell = 0; cell < board.length; cell++) {
-                int count = 0;
-                for (int cellNext = 1; cellNext < board.length; cellNext++) {
-                    if (board[row][cellNext] + board[row][cell] == 2) {
-                        count++;
-                    }
+                if (board[row][cell] == 1) {
+                    count++;
                 }
-                if (count == board.length - 1) {
-                    result = true;
-                }
+            }
+            if (count == board.length) {
+                result = true;
             }
         }
         return result;
@@ -31,16 +32,14 @@ public class Win {
     public static boolean monoVertical(int[][] board) {
         boolean result = false;
         for (int row = 0; row < board.length; row++) {
+            int count = 0;
             for (int cell = 0; cell < board.length; cell++) {
-                int count = 0;
-                for (int rowNext = 1; rowNext < board.length; rowNext++) {
-                    if (board[rowNext][cell] + board[row][cell] == 2) {
+                if (board[cell][row] == 1) {
                         count++;
-                    }
                 }
-                if (count == board.length - 1) {
-                    result = true;
-                }
+            }
+            if (count == board.length) {
+                result = true;
             }
         }
         return result;
